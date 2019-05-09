@@ -4,7 +4,8 @@
   "description": "create spider by siwi-cli",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "monitor": "node monitor/server.js",
+    "test": "./node_modules/mocha/bin/mocha test/index.test"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,12 @@
     "cheerio": "^1.0.0-rc.3",
     "got": "^9.6.0",
     "ioredis": "^4.9.3",
+    "koa": "^2.7.0",
+    "koa-bodyparser": "^4.2.1",
+    "koa-logger": "^3.2.0",
+    "koa-router": "^7.4.0",
+    "koa-views": "^6.2.0",
+    "pug": "^2.0.3",
     "request": "^2.88.0",
     "siwi-file": "^1.0.3",
     "siwi-request": "^2.0.0",

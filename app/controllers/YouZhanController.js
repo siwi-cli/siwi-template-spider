@@ -29,7 +29,6 @@ class YouZhanController {
         return totalPage
     }
 
-
     async spiderHandlerByPage(page) {
         let url = BASE_DOMAIN
         if (page != 1) {
