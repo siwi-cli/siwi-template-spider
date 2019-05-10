@@ -1,0 +1,3 @@
+module.exports = {
+    CACHE_YOUZHAN_ITEMS_LIST: 'CACHE_YOUZHAN_ITEMS_LIST'
+}

@@ -1,16 +1,16 @@
 const cheerio = require('cheerio')
 const http = require('http')
 const BASE_DOMAIN = 'http://www.youzhan.org'
+const redis = require('../libs/redis')
+const config = require('../config')
 class YouZhanController {
     constructor() {}
     async index() {
         const totalPage = await this.getTotalPage()
         for (let page = 1; page <= totalPage; page++) {
             await this.spiderHandlerByPage(page)
-            if (page > 2) {
-                break;
-            }
         }
+        await redis.quit()
     }
 
     async getTotalPage() {
@@ -37,8 +37,7 @@ class YouZhanController {
         const html = await this.get(url)
         if (!!html) {
             const $ = cheerio.load(html)
-            const items = []
-            $('article.post').each((i, e) => {
+            $('article.post').each(async (i, e) => {
                 const item = {
                     title: $(e).children('h2').children('a').text(),
                     href: $(e).children('h2').children('a').attr('href'),
@@ -47,9 +46,8 @@ class YouZhanController {
                 if (item.href[0] == '/') {
                     item.href = BASE_DOMAIN + item.href
                 }
-                items.push(item)
+                await redis.lpush(config.cache.CACHE_YOUZHAN_ITEMS_LIST, JSON.stringify(item))
             })
-            console.log(items);
         }
     }
     async get(url) {

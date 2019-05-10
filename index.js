@@ -1,6 +1,8 @@
 (async () => {
     const YouZhanController = require('./app/controllers/YouZhanController')
     const youZhanController = new YouZhanController()
-
-    await youZhanController.index()
+    const FileDownloadController= require('./app/controllers/FileDownloadController')
+    const fileDownloadController = new FileDownloadController()
+    // await youZhanController.index()
+    await fileDownloadController.download()
 })()
